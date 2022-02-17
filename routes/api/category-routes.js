@@ -5,7 +5,7 @@ const { Category, Product } = require('../../models');
 
 router.get('/', async (req, res) => {
   // find all categories
-  try {
+  try{
     const categoryData = await Category.findAll({
       include: [Product]
     });
@@ -18,47 +18,47 @@ router.get('/', async (req, res) => {
 
 router.get('/:id', (req, res) => {
   // find one category by its `id` value
-  Category.findByPk(req.params.id, {
+  Category.findByPk(req.params.id,{
     include: [Product]
   })
-    .then((result) => {
-      res.status(200).json(result)
-    }).catch((err) => {
-      res.status(500).json(err);
-      // be sure to include its associated Products
-    })
+  .then((result) =>{
+    res.status(200).json(result)
+  }).catch((err) => {
+    res.status(500).json(err);
+  // be sure to include its associated Products
+})
 });
 
 router.post('/', (req, res) => {
   Category.create(req.body)
-    .then((result) => {
-      res.status(200).json(result)
-    }).catch((err) => {
-      res.status(500).json(err);
-    })
+  .then((result) =>{
+    res.status(200).json(result)
+  }).catch((err) => {
+    res.status(500).json(err);
+  })
   // create a new category
 });
 
 router.put('/:id', (req, res) => {
-  Category.update(req.body, {
-    where: { id: req.params.id }
+  Category.update(req.body,{
+    where: {id:req.params.id}
   })
-    .then((result) =>
-      res.status(200).json(result))
-    .catch((err) =>
-      res.status(500).json(err))
+  .then((result) => 
+  res.status(200).json(result))
+  .catch((err) => 
+    res.status(500).json(err))
   // update a category by its `id` value
 });
 
 router.delete('/:id', (req, res) => {
   // delete a category by its `id` value
-  Category.destroy({
-    where: { id: req.params.id }
+  Category.destroy ({
+    where: {id:req.params.id}
   })
-    .then((result) =>
-      res.status(200).json(result))
-    .catch((err) =>
-      res.status(500).json(err))
-});
+  .then((result) => 
+  res.status(200).json(result))
+  .catch((err) => 
+    res.status(500).json(err))
+  });
 
 module.exports = router;
